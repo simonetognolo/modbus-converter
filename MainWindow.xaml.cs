@@ -37,6 +37,7 @@ namespace ModbusConverter
                 : (ushort)lowValue << 16 | (ushort)highValue);
 
             TbLong.Text = merge.ToString();
+            TbULong.Text = unchecked(((uint)merge).ToString());
 
             // ASCII result
             var lowAscii = unchecked(BitConverter.GetBytes((ushort)lowValue));

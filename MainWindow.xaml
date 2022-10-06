@@ -56,7 +56,15 @@
                    HorizontalAlignment="Center" />
             <TextBox x:Name="TbLong"
                      Text="0"
-                     Margin="10"
+                     Margin="10,5"
+                     TextWrapping="Wrap"
+                     Width="120"
+                     IsEnabled="False" />
+            <Label Content="ULong"
+                   HorizontalAlignment="Center" />
+            <TextBox x:Name="TbULong"
+                     Text="0"
+                     Margin="10,5"
                      TextWrapping="Wrap"
                      Width="120"
                      IsEnabled="False" />
@@ -64,7 +72,7 @@
                    HorizontalAlignment="Center" />
             <TextBox x:Name="TbAscii"
                      Text=""
-                     Margin="10"
+                     Margin="10,5"
                      TextWrapping="Wrap"
                      Width="120"
                      IsEnabled="False" />
