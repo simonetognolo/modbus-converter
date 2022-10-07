@@ -15,37 +15,11 @@ Questo progetto ha due scopi:
 Dati due registri contingui su canale Modbus, si intende il primo come valore _basso_ mentre il secondo come valore _alto_. Inserendo i valori nei rispettivi campi di input il programma unisce i 16 bit dei due valori per creare un array di 32 bit, per poi fare le seguenti conversioni:
 
 * Long (1 `int` a 32 bit);
+* ULong (1 `uint` a 32 bit);
 * ASCII (4 `char` a 8 bit) (se un singolo valore non è convertibile in un carattere stampabile, il suo valore verrà ignorato).
 
-![image](https://user-images.githubusercontent.com/93708281/194260659-a89f4eb7-70b0-4b2f-b3c4-cc23705d423d.png)
+![image](https://user-images.githubusercontent.com/93708281/194342639-9eb13c33-82db-4f9f-b879-33c75fe682ae.png)
 
 ## Logica di conversione
 
-I valori vengono convertiti dal metodo `EvalValues`
-
-```cs
-private void EvalValues()
-{
-    if (TbLong == null)
-        return;
-
-    if (TbHighValue ==  null || !int.TryParse(TbHighValue.Text, out var highValue))
-        highValue = 0;
-
-    if (TbLowValue == null || !int.TryParse(TbLowValue.Text, out var lowValue))
-        lowValue = 0;
-
-    // Long result
-    var merge = unchecked(BitConverter.IsLittleEndian
-        ? (ushort)highValue << 16 | (ushort)lowValue
-        : (ushort)lowValue << 16 | (ushort)highValue);
-
-    TbLong.Text = merge.ToString();
-
-    // ASCII result
-    var lowAscii = unchecked(BitConverter.GetBytes((ushort)lowValue));
-    var highAscii = unchecked(BitConverter.GetBytes((ushort)highValue));
-
-    TbAscii.Text = System.Text.Encoding.ASCII.GetString(lowAscii) + " - " + System.Text.Encoding.ASCII.GetString(highAscii);
-}
-```
+I valori vengono convertiti dal metodo [`EvalValues`](https://github.com/simonetognolo/modbus-converter/blob/main/MainWindow.xaml.cs#L23).
